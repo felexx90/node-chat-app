@@ -5,11 +5,10 @@
   "main": "index.js",
   "scripts": {
     "start": "node dist/index.js",
-    "prestart": "npm build",
+    "prestart": "rimraf dist && npm run build",
     "test": "echo \"Error: no test specified\" && exit 1",
     "nodemon": "nodemon ./src/index.ts",
     "copy-static-assets": "node copyStaticAssets.js",
-    "prebuild":"rimraf dist",
     "build": "tsc && npm run copy-static-assets"
   },
   "engines": {
