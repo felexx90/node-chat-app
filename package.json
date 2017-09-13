@@ -5,9 +5,10 @@
   "main": "dist/index.js",
   "scripts": {
     "start": "node dist/index.js",
-    "prestart": "rimraf dist && npm run build",
+    "prestart": "npm run delete-build && npm run build",
     "test": "echo \"Error: no test specified\" && exit 1",
     "nodemon": "nodemon ./src/index.ts",
+    "delete-build":"node deleteBuild.js",
     "copy-static-assets": "node copyStaticAssets.js",
     "build": "tsc && npm run copy-static-assets",
     "postinstall": "node install -g rimraf"
