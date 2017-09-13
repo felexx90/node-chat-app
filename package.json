@@ -10,8 +10,7 @@
     "nodemon": "nodemon ./src/index.ts",
     "delete-build":"node deleteBuild.js",
     "copy-static-assets": "node copyStaticAssets.js",
-    "build": "tsc && npm run copy-static-assets",
-    "postinstall": "node install -g rimraf"
+    "build": "tsc && npm run copy-static-assets"
   },
   "engines": {
     "node":"8.4.0"
