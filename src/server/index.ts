@@ -8,104 +8,97 @@ import * as indexRoute from "./routes/index";
 
 const publicPath = path.join(__dirname, "../public");
 
-console.log(indexRoute);
+/**
+ * The server.
+ *
+ * @class Server
+ */
+class Server {
 
-namespace ExpressApp {
+    public app: express.Application;
 
     /**
-     * The server.
+     * Bootstrap the application.
      *
      * @class Server
+     * @method bootstrap
+     * @static
      */
-    export class Server {
+    public static bootstrap(): Server {
+        return new Server();
+    }
 
-        public app: express.Application;
+    /**
+     * Constructor.
+     *
+     * @class Server
+     * @constructor
+     */
+    constructor() {
+        // create expressjs application
+        this.app = express();
 
-        /**
-         * Bootstrap the application.
-         *
-         * @class Server
-         * @method bootstrap
-         * @static
-         */
-        public static bootstrap(): Server {
-            return new Server();
-        }
+        // configure application
+        this.config();
 
-        /**
-         * Constructor.
-         *
-         * @class Server
-         * @constructor
-         */
-        constructor() {
-            // create expressjs application
-            this.app = express();
+        // configure routes
+        this.routes();
 
-            // configure application
-            this.config();
+    }
 
-            // configure routes
-            this.routes();
+    /**
+     * Configure application
+     *
+     * @class Server
+     * @method config
+     * @return void
+     */
+    private config() {
+        // configure jade
+        // this.app.set("views", path.join(__dirname, "views"));
+        // this.app.set("view engine", "jade");
 
-        }
+        // mount logger
+        // this.app.use(logger("dev"));
 
-        /**
-         * Configure application
-         *
-         * @class Server
-         * @method config
-         * @return void
-         */
-        private config() {
-            // configure jade
-            // this.app.set("views", path.join(__dirname, "views"));
-            // this.app.set("view engine", "jade");
+        // mount json form parser
+        this.app.use(bodyParser.json());
+        // mount query string parser
+        this.app.use(bodyParser.urlencoded({extended: true}));
 
-            // mount logger
-            // this.app.use(logger("dev"));
+        // add static paths
+        this.app.use(express.static(publicPath));
 
-            // mount json form parser
-            this.app.use(bodyParser.json());
+        // catch 404 and forward to error handler
+        this.app.use(function (err: any, req: express.Request, res: express.Response, next: express.NextFunction) {
+            const error = new Error("Not Found");
+            err.status = 404;
+            next(err);
+        });
+    }
 
-            // mount query string parser
-            this.app.use(bodyParser.urlencoded({extended: true}));
+    /**
+     * Configure routes
+     *
+     * @class Server
+     * @method routes
+     * @return void
+     */
+    private routes() {
+        // get router
+        let router: express.Router;
+        router = express.Router();
 
-            // add static paths
-            this.app.use(express.static(publicPath));
+        // create routes
+        const index: indexRoute.Index = new indexRoute.Index();
 
-            // catch 404 and forward to error handler
-            this.app.use(function (err: any, req: express.Request, res: express.Response, next: express.NextFunction) {
-                const error = new Error("Not Found");
-                err.status = 404;
-                next(err);
-            });
-        }
+        // home page
+        router.get("/", index.index.bind(index.index));
 
-        /**
-         * Configure routes
-         *
-         * @class Server
-         * @method routes
-         * @return void
-         */
-        private routes() {
-            // get router
-            let router: express.Router;
-            router = express.Router();
-
-            // create routes
-            const index: indexRoute.Index = new indexRoute.Index();
-
-            // home page
-            router.get("/", index.index.bind(index.index));
-
-            // use router middleware
-            this.app.use(router);
-        }
-
+        // use router middleware
+        this.app.use(router);
     }
 
 }
 
-export = ExpressApp;
+export default Server.bootstrap().app;

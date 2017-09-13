@@ -4,8 +4,34 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node dist/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "nodemon": "nodemon ./src/index.ts",
+    "copy-static-assets": "node copyStaticAssets.js",
+    "build": "tsc",
+    "postinstall": "rimraf dist && npm run build && npm run copy-static-assets"
+  },
+  "engines": {
+    "node":"8.4.0"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.0",
+    "express": "^4.15.4",
+    "lodash": "^4.17.4"
+  },
+  "devDependencies": {
+    "@types/body-parser": "^1.16.5",
+    "@types/express": "^4.0.37",
+    "@types/lodash": "^4.14.74",
+    "@types/mocha": "^2.2.43",
+    "@types/node": "^8.0.28",
+    "mocha": "^3.5.2",
+    "rimraf": "^2.6.2",
+    "shelljs": "^0.7.8",
+    "ts-node": "^3.3.0",
+    "tslint": "^5.7.0",
+    "typescript": "^2.5.2"
+  }
 }

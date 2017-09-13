@@ -60,3 +60,9 @@ typings/
 .env
 
 
+.idea/inspectionProfiles/
+.idea/jsLibraryMappings.xml
+.idea/modules.xml
+.idea/node-chat-app.iml
+.idea/workspace.xml
+/dist/
