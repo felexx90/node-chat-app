@@ -12,6 +12,7 @@
     "copy-static-assets": "node copyStaticAssets.js",
     "build": "tsc && npm run copy-static-assets"
   },
+
   "engines": {
     "node":"8.4.0"
   },
