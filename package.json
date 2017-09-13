@@ -9,7 +9,7 @@
     "nodemon": "nodemon ./src/index.ts",
     "copy-static-assets": "node copyStaticAssets.js",
     "build": "tsc",
-    "postinstall": "rimraf dist && npm run build && npm run copy-static-assets"
+    "postinstall": "node rimraf dist && npm run build && npm run copy-static-assets"
   },
   "engines": {
     "node":"8.4.0"
